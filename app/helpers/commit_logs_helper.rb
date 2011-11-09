@@ -1,0 +1,2 @@
+module CommitLogsHelper
+end

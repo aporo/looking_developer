@@ -1,0 +1,27 @@
+<h1>Listing commit_logs</h1>
+
+<table>
+  <tr>
+    <th>Commit at</th>
+    <th>User</th>
+    <th>Type</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @commit_logs.each do |commit_log| %>
+  <tr>
+    <td><%= commit_log.commit_at %></td>
+    <td><%= commit_log.user_id %></td>
+    <td><%= commit_log.type_id %></td>
+    <td><%= link_to 'Show', commit_log %></td>
+    <td><%= link_to 'Edit', edit_commit_log_path(commit_log) %></td>
+    <td><%= link_to 'Destroy', commit_log, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Commit log', new_commit_log_path %>

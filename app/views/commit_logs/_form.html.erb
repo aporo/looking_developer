@@ -1,0 +1,29 @@
+<%= form_for(@commit_log) do |f| %>
+  <% if @commit_log.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@commit_log.errors.count, "error") %> prohibited this commit_log from being saved:</h2>
+
+      <ul>
+      <% @commit_log.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :commit_at %><br />
+    <%= f.datetime_select :commit_at %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :type_id %><br />
+    <%= f.number_field :type_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
