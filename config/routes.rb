@@ -1,4 +1,6 @@
 LookingDeveloper::Application.routes.draw do
+  resources :looking_types
+
   resources :types
 
   resources :commit_logs

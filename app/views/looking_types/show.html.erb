@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @looking_type.user_id %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= @looking_type.type_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_looking_type_path(@looking_type) %> |
+<%= link_to 'Back', looking_types_path %>

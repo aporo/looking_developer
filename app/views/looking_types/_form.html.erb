@@ -1,0 +1,25 @@
+<%= form_for(@looking_type) do |f| %>
+  <% if @looking_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@looking_type.errors.count, "error") %> prohibited this looking_type from being saved:</h2>
+
+      <ul>
+      <% @looking_type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :type_id %><br />
+    <%= f.number_field :type_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
