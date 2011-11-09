@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe CommitLog do
+  pending "add some examples to (or delete) #{__FILE__}"
   def valid_attributes(user,type)
     {:commit_at => Time.now, :user_id => user.id,:type_id => type.id }
   end
