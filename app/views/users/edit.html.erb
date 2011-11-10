@@ -5,8 +5,10 @@
 <h2>Add a looking types:</h2>
 <%= form_for([@user, @user.looking_types.build]) do |f| %>
 <div class="field">
-  <%= f.label :type_id %><br />
-  <%= f.text_field :type_id %>
+  <% @user.not_looking.each do |type| %>
+  <%= check_box_tag(:looking_types,type.id) %>
+  <%= label_tag(:looking_types,type.name) %>,
+  <% end %>
 </div>
 <div class="actions">
   <%= f.submit %>

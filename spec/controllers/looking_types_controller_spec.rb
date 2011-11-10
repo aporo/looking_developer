@@ -59,38 +59,35 @@ describe LookingTypesController do
   end
 
   describe "POST create" do
+    before do
+      @bob = User.create!(:name => "Bob", :email => "bob@gmail.com")
+    end
+
     describe "with valid params" do
       it "creates a new LookingType" do
         expect {
-          post :create, :looking_type => valid_attributes
+          post :create, :looking_types => [1], :user_id => @bob.id
         }.to change(LookingType, :count).by(1)
       end
 
       it "assigns a newly created looking_type as @looking_type" do
-        post :create, :looking_type => valid_attributes
-        assigns(:looking_type).should be_a(LookingType)
-        assigns(:looking_type).should be_persisted
+        post :create, :looking_types => [1], :user_id => @bob.id
+        assigns(:looking_types).should be_a(Array)
+        assigns(:looking_types).size.should == 1
       end
 
-      it "redirects to the created looking_type" do
-        post :create, :looking_type => valid_attributes
-        response.should redirect_to(LookingType.last)
+      it "redirects to the user show" do
+        post :create, :looking_types => [1], :user_id => @bob.id
+        response.should redirect_to(:controller => "users",:action => "show", :id => @bob.id)
       end
     end
-
+    
     describe "with invalid params" do
-      it "assigns a newly created but unsaved looking_type as @looking_type" do
+      it "redirect to the the user show" do
         # Trigger the behavior that occurs when invalid params are submitted
         LookingType.any_instance.stub(:save).and_return(false)
-        post :create, :looking_type => {}
-        assigns(:looking_type).should be_a_new(LookingType)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        LookingType.any_instance.stub(:save).and_return(false)
-        post :create, :looking_type => {}
-        response.should render_template("new")
+        post :create, :looking_types => [], :user_id => @bob.id
+        response.should redirect_to(:controller => "users",:action => "show", :id => @bob.id)
       end
     end
   end

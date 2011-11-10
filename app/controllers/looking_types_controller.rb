@@ -40,15 +40,21 @@ class LookingTypesController < ApplicationController
   # POST /looking_types
   # POST /looking_types.json
   def create
-    @looking_type = LookingType.new(params[:looking_type].merge!(:user_id => params[:user_id]))
+    @looking_types = []
+    params[:looking_types].each do |type|
+      looking_type = {:type_id => type}
+      looking_type.merge!(:user_id => params[:user_id])
+      @looking_types << LookingType.new(looking_type)
+    end
 
     respond_to do |format|
-      if @looking_type.save
-        format.html { redirect_to @looking_type, :notice => 'Looking type was successfully created.' }
-        format.json { render :json => @looking_type, :status => :created, :location => @looking_type }
+      if !@looking_types.empty? and @looking_types.all? { |looking_type| looking_type.save }
+#        format.html { redirect_to :controller => "users",:action => "show", :id => params[:user_id], :notice => 'Looking type was successfully created.' }
+        format.html { redirect_to :controller => "users",:action => "show", :id => params[:user_id] }
+        format.json { render :json => @looking_types, :status => :created, :location => @looking_types }
       else
-        format.html { render :action => "new" }
-        format.json { render :json => @looking_type.errors, :status => :unprocessable_entity }
+        format.html { redirect_to :controller => "users",:action => "show", :id => params[:user_id] }
+        format.json { render :json => @looking_types.errors, :status => :unprocessable_entity }
       end
     end
   end

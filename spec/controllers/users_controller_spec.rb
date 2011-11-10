@@ -99,23 +99,51 @@ describe UsersController do
     describe "with valid params" do
       it "updates the requested user" do
         user = User.create! valid_attributes
+        Type.create(:name => "Ruby", :pattern => ".ruby")
+        Type.create(:name => "PHP", :pattern => ".php")
+        looking_types = Type.all.map do |type|
+          type.id if LookingType.create(:type_id => type.id, :user_id => user.id)
+        end
         # Assuming there are no other users in the database, this
         # specifies that the User created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         User.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => user.id, :user => {'these' => 'params'}
+        put :update, :id => user.id, :user => {'these' => 'params'},:looking_types => looking_types
       end
 
+      it "update users looking_types" do
+        user = User.create! valid_attributes
+        Type.create(:name => "Ruby", :pattern => ".ruby")
+        Type.create(:name => "PHP", :pattern => ".php")
+        looking_types = Type.all.map do |type|
+          type.id if LookingType.create(:type_id => type.id, :user_id => user.id)
+        end
+        User.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+        put :update, :id => user.id, :user => {'these' => 'params'},:looking_types => looking_types
+        user.reload
+        user.looking_types.empty?
+      end
+      
       it "assigns the requested user as @user" do
         user = User.create! valid_attributes
-        put :update, :id => user.id, :user => valid_attributes
+        Type.create(:name => "Ruby", :pattern => ".ruby")
+        Type.create(:name => "PHP", :pattern => ".php")
+        looking_types = Type.all.map do |type|
+          type.id if LookingType.create(:type_id => type.id, :user_id => user.id)
+        end
+        put :update, :id => user.id, :user => valid_attributes,:looking_types => looking_types
         assigns(:user).should eq(user)
       end
 
       it "redirects to the user" do
         user = User.create! valid_attributes
-        put :update, :id => user.id, :user => valid_attributes
+        Type.create(:name => "Ruby", :pattern => ".ruby")
+        Type.create(:name => "PHP", :pattern => ".php")
+        looking_types = Type.all.map do |type|
+          type.id if LookingType.create(:type_id => type.id, :user_id => user.id)
+        end
+        put :update, :id => user.id, :user => valid_attributes,:looking_types => looking_types
         response.should redirect_to(user)
       end
     end
@@ -123,17 +151,27 @@ describe UsersController do
     describe "with invalid params" do
       it "assigns the user as @user" do
         user = User.create! valid_attributes
+        Type.create(:name => "Ruby", :pattern => ".ruby")
+        Type.create(:name => "PHP", :pattern => ".php")
+        looking_types = Type.all.map do |type|
+          type.id if LookingType.create(:type_id => type.id, :user_id => user.id)
+        end
         # Trigger the behavior that occurs when invalid params are submitted
         User.any_instance.stub(:save).and_return(false)
-        put :update, :id => user.id, :user => {}
+        put :update, :id => user.id, :user => {},:looking_types => looking_types
         assigns(:user).should eq(user)
       end
 
       it "re-renders the 'edit' template" do
         user = User.create! valid_attributes
+        Type.create(:name => "Ruby", :pattern => ".ruby")
+        Type.create(:name => "PHP", :pattern => ".php")
+        looking_types = Type.all.map do |type|
+          type.id if LookingType.create(:type_id => type.id, :user_id => user.id)
+        end
         # Trigger the behavior that occurs when invalid params are submitted
         User.any_instance.stub(:save).and_return(false)
-        put :update, :id => user.id, :user => {}
+        put :update, :id => user.id, :user => {},:looking_types => looking_types
         response.should render_template("edit")
       end
     end

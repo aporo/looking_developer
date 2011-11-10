@@ -19,6 +19,14 @@
     <%= f.label :email %><br />
     <%= f.text_field :email %>
   </div>
+  <div class="field">
+    LookingType<br />
+    <% @user.looking_types.each do |look| %>
+    <%= check_box_tag(:looking_types,look.id) %>
+    <%= label_tag(:looking_types,look.type.name) %>,
+    <% end %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
