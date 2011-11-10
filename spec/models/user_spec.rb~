@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe User do
@@ -31,6 +32,78 @@ describe User do
       
       it { @john_miss_name.should_not be_valid }
       it { @john_miss_email.should_not be_valid }
+    end
+  end
+
+  describe 'looking' do
+    context 'Lookしているtypeの場合' do
+      before do
+        @john = User.create(valid_attributes)
+        @ruby = Type.create(:name => 'Ruby', :pattern => '.rb')
+        @php = Type.create(:name => 'PHP', :pattern => '.php')
+        LookingType.create(:user_id => @john.id,:type_id => @ruby.id)
+        LookingType.create(:user_id => @john.id,:type_id => @php.id)
+      end
+
+      it "john's looking is [Ruby,PHP]" do
+        @john.looking.should be_a_kind_of(Array)
+        @john.looking[0].should == @ruby.name
+        @john.looking[1].should == @php.name
+      end
+    end
+    context 'Lookしていないtypeの場合' do
+      before do
+        @john = User.create(valid_attributes)
+        @ruby = Type.create(:name => 'Ruby', :pattern => '.rb')
+        @php = Type.create(:name => 'PHP', :pattern => '.php')
+      end
+
+      it "john's looking is empty" do
+        @john.looking.should be_a_kind_of(Array)
+        @john.looking.should be_empty
+      end
+    end
+  end
+
+  describe 'not_looking' do
+    context 'Lookしているtypeの場合' do
+      before do
+        @john = User.create(valid_attributes)
+        @ruby = Type.create(:name => 'Ruby', :pattern => '.rb')
+        @php = Type.create(:name => 'PHP', :pattern => '.php')
+        LookingType.create(:user_id => @john.id,:type_id => @ruby.id)
+        LookingType.create(:user_id => @john.id,:type_id => @php.id)
+      end
+
+      it "john's looking is empty" do
+        @john.not_looking.should be_a_kind_of(Array)
+        @john.not_looking.should be_empty
+      end
+    end
+    context 'Lookしていないtypeの場合' do
+      before do
+        @john = User.create(valid_attributes)
+        @ruby = Type.create(:name => 'Ruby', :pattern => '.rb')
+        @php = Type.create(:name => 'PHP', :pattern => '.php')
+      end
+
+      it "john's looking is [Ruby,PHP]" do
+        @john.not_looking.should be_a_kind_of(Array)
+        @john.not_looking[0].should == @ruby
+        @john.not_looking[1].should == @php
+      end
+    end
+  end
+
+  describe 'commit_count' do
+    before do
+      @john = User.create(valid_attributes)
+      @ruby = Type.create(:name => 'Ruby', :pattern => '.rb')
+      @commit_log = CommitLog.create(:user_id => @john.id, :type_id => @ruby.id.:commit_at => Time.now)
+    end
+    
+    it "john's commit_count == 1" do
+      @john.commit_count.should == 1
     end
   end
 end

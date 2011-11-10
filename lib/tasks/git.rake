@@ -14,6 +14,6 @@ task :git_import => :environment do
         end
       end
     end
-#    `rm "/Users/m-kondo/rails/looking_developer/tmp/#{user.name}_git_log.txt"`
+    `rm "/Users/m-kondo/rails/looking_developer/tmp/#{user.name}_git_log.txt"`
   end
 end

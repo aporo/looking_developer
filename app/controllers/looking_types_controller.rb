@@ -40,7 +40,7 @@ class LookingTypesController < ApplicationController
   # POST /looking_types
   # POST /looking_types.json
   def create
-    @looking_type = LookingType.new(params[:looking_type])
+    @looking_type = LookingType.new(params[:looking_type].merge!(:user_id => params[:user_id]))
 
     respond_to do |format|
       if @looking_type.save

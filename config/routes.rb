@@ -1,13 +1,16 @@
 LookingDeveloper::Application.routes.draw do
   root :to => 'users#index'
 
-  resources :looking_types
-
   resources :types
+
+  resources :looking_types
 
   resources :commit_logs
 
-  resources :users
+  resources :users do
+    resources :looking_types
+    resources :commit_logs
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

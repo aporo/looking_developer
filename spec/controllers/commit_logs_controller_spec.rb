@@ -19,7 +19,7 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe CommitLogsController do
-
+=begin
   # This should return the minimal set of attributes required to create a valid
   # CommitLog. As you add validations to CommitLog, be sure to
   # update the return value of this method accordingly.
@@ -153,5 +153,5 @@ describe CommitLogsController do
       response.should redirect_to(commit_logs_url)
     end
   end
-
+=end
 end

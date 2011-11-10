@@ -10,6 +10,18 @@
   <%= @user.email %>
 </p>
 
+<p>
+  <b>LookingType:</b>
+  <% @user.looking.each do |look| %>
+  <%= look %>,
+  <% end %>
+</p>
+
+<p>
+  <b>CommitCount:</b>
+  <%= @user.commit_count %>
+</p>
+
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

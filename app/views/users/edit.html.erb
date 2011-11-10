@@ -2,5 +2,16 @@
 
 <%= render 'form' %>
 
+<h2>Add a looking types:</h2>
+<%= form_for([@user, @user.looking_types.build]) do |f| %>
+<div class="field">
+  <%= f.label :type_id %><br />
+  <%= f.text_field :type_id %>
+</div>
+<div class="actions">
+  <%= f.submit %>
+</div>
+<% end %>
+
 <%= link_to 'Show', @user %> |
 <%= link_to 'Back', users_path %>
