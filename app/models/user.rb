@@ -18,6 +18,13 @@ class User < ActiveRecord::Base
   end
   
   def commit_count
-    self.commit_logs.group(:commit_at).length
+#    self.commit_logs.group(:commit_at).length
+    self.commit_logs.length
+  end
+
+  def commit_count_by_type
+    Type.all.map do |type|
+      {:name => type.name , :count => CommitLog.count(:conditions => {:user_id => self.id,:type_id => type.id})}
+    end
   end
 end
