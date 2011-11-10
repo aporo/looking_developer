@@ -24,7 +24,7 @@ describe LookingTypesController do
   # LookingType. As you add validations to LookingType, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {:user_id => 1,:type_id => 1}
   end
 
   describe "GET index" do

@@ -48,7 +48,7 @@ class LookingTypesController < ApplicationController
     end
 
     respond_to do |format|
-      if !@looking_types.empty? and @looking_types.all? { |looking_type| looking_type.save }
+      if !@looking_types.empty? and @looking_types.all? { |looking_type| looking_type.save! }
 #        format.html { redirect_to :controller => "users",:action => "show", :id => params[:user_id], :notice => 'Looking type was successfully created.' }
         format.html { redirect_to :controller => "users",:action => "show", :id => params[:user_id] }
         format.json { render :json => @looking_types, :status => :created, :location => @looking_types }

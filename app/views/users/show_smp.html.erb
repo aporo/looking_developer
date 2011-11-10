@@ -18,37 +18,28 @@
   <% end %>
   <% end %>
   ]);
+  var options = {'width':360,'height':300};
   
-
-  var options = {'title':'Commit Count',
-  'width':500,
-  'height':400};
-  
-  // Instantiate and draw our chart, passing in some options.
   var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
   chart.draw(data, options);
   }
 </script>
 <!--end Load-->
-<p>
-  <b>Name:</b>
-  <%= @user.name %>
-</p>
 
-<p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
-
-<p>
-  <b>LookingType:</b>
-  <% @user.looking.each do |look| %>
-  <%= look %>,
-  <% end %>
-</p>
-
-<div id = "chart_div">
+<div data-role="header" data-position="inline" data-nobackbtn="true">
+  <%= link_to 'Back', users_path , {"class" => "ui-btn-left", "data-icon" => "back"} %>
+  <h1><%= @user.name %></h1>
+  <%= link_to 'Edit', edit_user_path(@user) , {"class" => "ui-btn-right", "data-icon" => "check"} %>
 </div>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<ul data-role="listview">
+  <li data-role="list-divider">Email</li>
+  <li><%= @user.email %></li>
+  <li data-role="list-divider">LookingType</li>
+  <% @user.looking.each do |look| %>
+  <li><%= look %></li>
+  <% end %>
+  <li data-role="list-divider">CommitLogInfo</li>
+  <div id = "chart_div" align="center">
+  </div>
+</ul>

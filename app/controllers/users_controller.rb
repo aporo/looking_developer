@@ -16,8 +16,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @user }
+      if smartphone?
+        format.html {render :template => "users/show_smp"}
+      else
+        format.html # show.html.erb
+        format.json { render :json => @user }
+      end
     end
   end
 

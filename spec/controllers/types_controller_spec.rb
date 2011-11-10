@@ -24,7 +24,7 @@ describe TypesController do
   # Type. As you add validations to Type, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {:name => "ruby", :pattern => ".rb"}
   end
 
   describe "GET index" do

@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 
   def not_looking
     Type.all.select do |type|
-      self.looking_types.any?{ |looking_type| looking_type.id == type.id } == false
+      self.looking_types.any?{ |looking_type| looking_type.type_id == type.id } == false
     end
   end
   

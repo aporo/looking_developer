@@ -2,13 +2,22 @@
 <html>
 <head>
   <title>LookingDeveloper</title>
+  <% if @smartphone %>
+  <%= stylesheet_link_tag    "application_smp" %>
+  <%= javascript_include_tag "application_smp" %>
+  <% else %>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
+  <% end %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<% if @smartphone %>
+<div data-role="page">
+<% end %>
 <%= yield %>
-
+<% if @smartphone %>
+</div>
+<% end %>
 </body>
 </html>
