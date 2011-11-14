@@ -1,5 +1,5 @@
 class TypesController < ApplicationController
-  before_filter :authenticate, :only => ["edit"]
+  before_filter :authenticate
   # GET /types
   # GET /types.json
   def index

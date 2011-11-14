@@ -1,4 +1,4 @@
-desc "Import GitRepository Data"
+desc "Import Git Repository Data"
 namespace 'git' do
   task :import => :environment do
     users = User.all

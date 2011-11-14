@@ -1,4 +1,5 @@
 class CommitLogsController < ApplicationController
+  before_filter :authenticate
   # GET /commit_logs
   # GET /commit_logs.json
   def index
