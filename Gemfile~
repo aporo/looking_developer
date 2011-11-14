@@ -29,3 +29,4 @@ gem 'jquery-rails'
 # gem 'ruby-debug'
 
 gem 'rspec'
+gem 'rspec-rails'
