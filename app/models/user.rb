@@ -18,7 +18,6 @@ class User < ActiveRecord::Base
   end
   
   def commit_count
-#    self.commit_logs.group(:commit_at).length
     self.commit_logs.length
   end
 

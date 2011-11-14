@@ -1,14 +1,18 @@
 <h1>Editing user</h1>
 
-<%= render 'form' %>
+<%= render 'form_smp' %>
+
 
 <h2>Add a looking types:</h2>
 <%= form_for([@user, @user.looking_types.build]) do |f| %>
-<div class="field">
+
+<div data-role="fieldcontain">
+  <fieldset data-role="controlgroup">
   <% @user.not_looking.each do |type| %>
-  <%= check_box_tag(:looking_types,type.id) %>
-  <%= label_tag(:looking_types,type.name) %>,
+  <%= check_box_tag("looking_types[]",type.id , "class" => "custom" )%>
+  <%= label_tag("looking_types",type.name) %>,
   <% end %>
+  </fieldset>
 </div>
 <div class="actions">
   <%= f.submit %>

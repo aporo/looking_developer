@@ -1,0 +1,35 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div data-role="fieldcontain">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div data-role="fieldcontain">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div data-role="fieldcontain">
+    <fieldset data-role="controlgroup">
+    <legend>LookingType</legend>
+    <% @user.looking_types.each do |look| %>
+    <%= check_box_tag("looking_types[]",look.id, "class" => "custom") %>
+    <%= label_tag(:looking_types,look.type.name) %>
+    <% end %>
+    </fieldset>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -19,6 +19,6 @@ describe "users/edit.html.erb" do
   end
 
   it "renders the user's looking_type cheeckbox" do
-    assert_select "input#looking_tyoes", :name => "user[looking_types]"
+    assert_select "input#looking_types", :name => "user[looking_types]"
   end
 end
