@@ -65,9 +65,10 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
+    delete_looking_types = @user.looking_types.select{|type| params[:looking_types].include?("#{type.id}") == false }
     respond_to do |format|
-      if @user.update_attributes(params[:user]) and 
-          params[:looking_types].all?{|looking| LookingType.destroy([looking])}
+      if @user.update_attributes(params[:user]) and
+          delete_looking_types.all?{|looking| LookingType.destroy([looking])}
         format.html { redirect_to @user, :notice => 'User was successfully updated.' }
         format.json { head :ok }
       else
