@@ -1,4 +1,6 @@
 LookingDeveloper::Application.routes.draw do
+  resources :repositories
+
   root :to => 'users#index'
 
   resources :types

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111109084824) do
+ActiveRecord::Schema.define(:version => 20111114045626) do
 
   create_table "commit_logs", :force => true do |t|
     t.datetime "commit_at"
@@ -23,6 +23,12 @@ ActiveRecord::Schema.define(:version => 20111109084824) do
   create_table "looking_types", :force => true do |t|
     t.integer  "user_id"
     t.integer  "type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "repositories", :force => true do |t|
+    t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
