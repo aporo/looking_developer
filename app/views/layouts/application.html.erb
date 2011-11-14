@@ -2,12 +2,8 @@
 <html>
 <head>
   <title>LookingDeveloper</title>
-  <% if @smartphone %>
-  <%= javascript_include_tag "application_smp" %>
-  <% else %>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
-  <% end %>
   <%= csrf_meta_tags %>
 </head>
 <body>
