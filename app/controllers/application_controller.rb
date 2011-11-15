@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
 
   def login_check
    unless logged_in?
-     redirect_to(:controller => "users", :action => "index")
+     redirect_to(:controller => "users", :action => "login")
    end
   end
 

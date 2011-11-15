@@ -41,6 +41,15 @@ describe LookingTypesController do
     end
   end
 
+  describe "GET rank" do
+    it "assigns all looking_types ranking as @looking_types" do
+      type = Type.create!({:name => "Ruvy", :pattern => ".rb"})
+      LookingType.create!({:user_id => 1, :type_id => type.id})
+      get :rank
+      assigns(:looking_types)[0][:name].should eq(LookingType.rank[0][:name])
+    end
+  end
+
   describe "GET show" do
     it "assigns the requested looking_type as @looking_type" do
       looking_type = LookingType.create! valid_attributes
@@ -63,6 +72,7 @@ describe LookingTypesController do
       assigns(:looking_type).should eq(looking_type)
     end
   end
+
 
   describe "POST create" do
     before do

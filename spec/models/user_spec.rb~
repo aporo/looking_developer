@@ -39,65 +39,39 @@ describe User do
   end
 
   describe 'looking' do
-    context 'Lookしているtypeの場合' do
-      before do
-        @john = User.create(valid_attributes)
-        @ruby = Type.create(:name => 'Ruby', :pattern => '.rb')
-        @php = Type.create(:name => 'PHP', :pattern => '.php')
-        LookingType.create(:user_id => @john.id,:type_id => @ruby.id)
-        LookingType.create(:user_id => @john.id,:type_id => @php.id)
-      end
-
-      it "john's looking is [Ruby,PHP]" do
-        @john.looking.should be_a_kind_of(Array)
-        @john.looking[0].should == @ruby.name
-        @john.looking[1].should == @php.name
-      end
+    before do
+      @john = User.create(valid_attributes)
+      @ruby = Type.create(:name => 'Ruby', :pattern => '.rb')
+      @php = Type.create(:name => 'PHP', :pattern => '.php')
+      @java = Type.create(:name => 'Java', :pattern => '.java')
+      LookingType.create(:user_id => @john.id,:type_id => @ruby.id)
+      LookingType.create(:user_id => @john.id,:type_id => @php.id)
     end
-    context 'Lookしていないtypeの場合' do
-      before do
-        @john = User.create(valid_attributes)
-        @ruby = Type.create(:name => 'Ruby', :pattern => '.rb')
-        @php = Type.create(:name => 'PHP', :pattern => '.php')
-      end
-
-      it "john's looking is empty" do
+    
+    it "john's looking is [Ruby,PHP]" do
         @john.looking.should be_a_kind_of(Array)
-        @john.looking.should be_empty
-      end
+      @john.looking[0].should == @ruby.name
+      @john.looking[1].should == @php.name
+      @john.looking.include?(@java.name).should be_false
     end
   end
 
   describe 'not_looking' do
-    context 'Lookしているtypeの場合' do
-      before do
-        @john = User.create(valid_attributes)
-        @ruby = Type.create(:name => 'Ruby', :pattern => '.rb')
-        @php = Type.create(:name => 'PHP', :pattern => '.php')
-        LookingType.create(:user_id => @john.id,:type_id => @ruby.id)
-        LookingType.create(:user_id => @john.id,:type_id => @php.id)
-      end
-
-      it "john's looking is empty" do
-        @john.not_looking.should be_a_kind_of(Array)
-        @john.not_looking.should be_empty
-      end
+    before do
+      @john = User.create(valid_attributes)
+      @ruby = Type.create(:name => 'Ruby', :pattern => '.rb')
+      @php = Type.create(:name => 'PHP', :pattern => '.php')
+      @java = Type.create(:name => 'Java', :pattern => '.java')
+      LookingType.create(:user_id => @john.id,:type_id => @ruby.id)
+      LookingType.create(:user_id => @john.id,:type_id => @php.id)
     end
-    context 'Lookしていないtypeの場合' do
-      before do
-        @john = User.create(valid_attributes)
-        @ruby = Type.create(:name => 'Ruby', :pattern => '.rb')
-        @php = Type.create(:name => 'PHP', :pattern => '.php')
-      end
-
-      it "john's looking is [Ruby,PHP]" do
-        @john.not_looking.should be_a_kind_of(Array)
-        @john.not_looking[0].should == @ruby
-        @john.not_looking[1].should == @php
-      end
+    
+    it "john's looking is empty" do
+      @john.not_looking.should be_a_kind_of(Array)
+      @john.not_looking[0].should == @java
     end
   end
-
+  
   describe 'commit_count' do
     before do
       @john = User.create(valid_attributes)
@@ -125,5 +99,13 @@ describe User do
     end
     it { User.auth?(:name => "John Smith", :pass => "john").should be_true }
     it { User.auth?(:name => "John Smith", :pass => "bob").should be_false }
+  end
+  
+  describe 'encode' do
+    before do
+      @john = User.create(valid_attributes)
+    end
+    
+    it { @john.pass.should == @john.encode(valid_attributes[:pass])}
   end
 end

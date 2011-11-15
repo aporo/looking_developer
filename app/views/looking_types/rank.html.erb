@@ -1,0 +1,17 @@
+<h1>Ranking looking_types</h1>
+
+<table>
+  <tr>
+    <th>Type</th>
+    <th>Count</th>
+  </tr>
+
+<% @looking_types.each do |looking_type| %>
+  <tr>
+    <td><%= looking_type[:name] %></td>
+    <td><%= looking_type[:count] %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />

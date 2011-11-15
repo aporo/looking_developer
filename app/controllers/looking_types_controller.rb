@@ -10,6 +10,14 @@ class LookingTypesController < ApplicationController
     end
   end
 
+  def rank
+    @looking_types = LookingType.rank
+    respond_to do |format|
+      format.html # rank.html.erb
+      format.json { render :json => @looking_types }
+    end
+  end
+
   # GET /looking_types/1
   # GET /looking_types/1.json
   def show
