@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   validates_presence_of :name,:email,:pass
   has_many :commit_logs
   has_many :looking_types
+  before_create :encode_pass
 
   def looking
     self.looking_types.map do |looking_type|
@@ -33,10 +34,18 @@ class User < ActiveRecord::Base
 
   def self.auth?(user)
     u = User.find_by_name(user[:name])
-    if !u.nil? and u.pass == user[:pass]
+    if !u.nil? and u.pass == u.encode(user[:pass])
       return true
     else
       return false
     end
+  end
+  
+  def encode_pass
+    self.pass = encode(self.pass)
+  end
+
+  def encode(pass)
+    Digest::MD5.hexdigest("#{pass}looking")
   end
 end

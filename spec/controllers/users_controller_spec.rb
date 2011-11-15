@@ -24,7 +24,7 @@ describe UsersController do
   # User. As you add validations to User, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {:name => 'John Smith', :email => 'john@gmail.com'}
+    {:name => 'John Smith', :email => 'john@gmail.com', :pass => "john"}
   end
 
   describe "GET index" do
@@ -38,6 +38,7 @@ describe UsersController do
   describe "GET show" do
     it "assigns the requested user as @user" do
       user = User.create! valid_attributes
+      request.session[:user_id] = user.id
       get :show, :id => user.id
       assigns(:user).should eq(user)
     end
@@ -193,6 +194,9 @@ describe UsersController do
   end
 
   describe "GET login" do
+    before do
+      pending
+    end
     context "not logged in" do
       before do
         get 'login'
@@ -203,11 +207,12 @@ describe UsersController do
     
     context "logged in" do
       before do
-        request.session[:user_id] = 1
+        @user = User.create! valid_attributes
+        request.session[:user_id] = @user.id
         get 'login'
       end
       
-      it { response.should redirect_to(:controller => "users", :action => "index") }
+      it { response.should redirect_to(:controller => "users", :action => "show",:id => @user.id) }
     end
   end
 end

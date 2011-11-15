@@ -19,6 +19,12 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe LookingTypesController do
+  before(:each) do
+    user = 'voyage'
+    pw = 'voyage'
+    request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(user,pw)
+  end
+
 
   # This should return the minimal set of attributes required to create a valid
   # LookingType. As you add validations to LookingType, be sure to
@@ -60,7 +66,7 @@ describe LookingTypesController do
 
   describe "POST create" do
     before do
-      @bob = User.create!(:name => "Bob", :email => "bob@gmail.com")
+      @bob = User.create!(:name => "Bob", :email => "bob@gmail.com",:pass => "bob")
     end
 
     describe "with valid params" do

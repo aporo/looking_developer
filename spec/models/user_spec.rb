@@ -110,7 +110,7 @@ describe User do
     end
   end
 
-  describe 'owner?(user_id)' do
+  describe 'self.owner?(user_id)' do
     before do
       @john = User.create(valid_attributes)
     end
@@ -125,5 +125,13 @@ describe User do
     end
     it { User.auth?(:name => "John Smith", :pass => "john").should be_true }
     it { User.auth?(:name => "John Smith", :pass => "bob").should be_false }
+  end
+  
+  describe 'encode' do
+    before do
+      @john = User.create(valid_attributes)
+    end
+    
+    it { @john.pass.should == @john.encode(valid_attributes[:pass])}
   end
 end

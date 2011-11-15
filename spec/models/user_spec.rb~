@@ -9,13 +9,12 @@ describe User do
   def invalid_attributes(empty_key='name')
     if empty_key == 'name'
       {:name => '', :email => 'john@gmail.com', :pass => 'john'}
-    elsif('email')
+    elsif empty_key == 'email'
       {:name => 'John Smith', :email => '', :pass => 'john'}
     else
       {:name => 'John Smith', :email => 'john', :pass => ''}
     end
   end
-
 
   describe 'validate' do
     context 'valid' do

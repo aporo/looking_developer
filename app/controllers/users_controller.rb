@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-#  before_filter :login_check, :except => ["index"]
+#  before_filter :login_check, :only => ["login"]
   # GET /users
   # GET /users.json
   def index
@@ -48,14 +48,14 @@ class UsersController < ApplicationController
 
   # GET /users/login
   def login
-    redirect_to(:controller => "users", :action => "index") if logged_in?
+    redirect_to(:controller => "users", :action => "show", :id => session[:user_id]) if logged_in? and return
     user = params[:user]
-    if User.auth?(user)
-      @user = User.find_by_name(user[:name])
-      session[:user_id] = @user.id
-    else
-      render :action => "login"
+    if !user.nil? and User.auth?(user)
+      user = User.find_by_name(user[:name])
+      session[:user_id] = user.id
+      redirect_to(:controller => "users", :action => "show", :id => session[:user_id]) if logged_in? and return
     end
+    @user = User.new
   end
 
   # POST /users

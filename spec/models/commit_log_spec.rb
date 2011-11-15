@@ -17,14 +17,14 @@ describe CommitLog do
   describe 'validate' do
     context 'valid' do
       before do
-        bob = User.create(:name => 'Bob', :email => 'bob@gmail.com')
+        bob = User.create(:name => 'Bob', :email => 'bob@gmail.com', :pass => "bob")
         ruby = Type.create(:name => 'Ruby')
         @bob_log= CommitLog.new(valid_attributes(bob,ruby))
       end
       
       it { @bob_log.should be_valid }
     end
-
+    
     context 'invalid' do
       before do
         @commit_miss_time = CommitLog.new(invalid_attributes)

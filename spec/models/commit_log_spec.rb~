@@ -1,14 +1,13 @@
 require 'spec_helper'
 
 describe CommitLog do
-  pending "add some examples to (or delete) #{__FILE__}"
   def valid_attributes(user,type)
     {:commit_at => Time.now, :user_id => user.id,:type_id => type.id }
   end
 
   def invalid_attributes(empty_key='commit_at')
     if empty_key == 'commit_at'
-      {:commit_at => '', :user_id => "1",:type_id => "1" }
+      {:commit_at => '', :user_id => "1",:type_id => "1" }u
     else
       {:commit_at => Time.now, :user_id => "",:type_id => "1" }
     end
@@ -18,14 +17,14 @@ describe CommitLog do
   describe 'validate' do
     context 'valid' do
       before do
-        bob = User.create(:name => 'Bob', :email => 'bob@gmail.com')
+        bob = User.create(:name => 'Bob', :email => 'bob@gmail.com', :pass => "bob")
         ruby = Type.create(:name => 'Ruby')
         @bob_log= CommitLog.new(valid_attributes(bob,ruby))
       end
       
       it { @bob_log.should be_valid }
     end
-
+    
     context 'invalid' do
       before do
         @commit_miss_time = CommitLog.new(invalid_attributes)

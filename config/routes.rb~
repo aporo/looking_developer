@@ -10,7 +10,9 @@ LookingDeveloper::Application.routes.draw do
   resources :commit_logs
 
   resources :users do
-    get 'login'
+#    collection do
+#      get 'login'
+#    end
     resources :looking_types
     resources :commit_logs
   end
