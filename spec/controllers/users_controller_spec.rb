@@ -192,4 +192,22 @@ describe UsersController do
     end
   end
 
+  describe "GET login" do
+    context "not logged in" do
+      before do
+        get 'login'
+      end
+      
+      it { response.should render_template("login")} 
+    end
+    
+    context "logged in" do
+      before do
+        request.session[:user_id] = 1
+        get 'login'
+      end
+      
+      it { response.should redirect_to(:controller => "users", :action => "index") }
+    end
+  end
 end

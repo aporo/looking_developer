@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+#  before_filter :login_check, :except => ["index"]
   # GET /users
   # GET /users.json
   def index
@@ -43,6 +44,18 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+  end
+
+  # GET /users/login
+  def login
+    redirect_to(:controller => "users", :action => "index") if logged_in?
+    user = params[:user]
+    if User.auth?(user)
+      @user = User.find_by_name(user[:name])
+      session[:user_id] = @user.id
+    else
+      render :action => "login"
+    end
   end
 
   # POST /users

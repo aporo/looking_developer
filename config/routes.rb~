@@ -1,9 +1,16 @@
 LookingDeveloper::Application.routes.draw do
+  resources :repositories
+
   root :to => 'users#index'
 
   resources :types
 
+  resources :looking_types
+
+  resources :commit_logs
+
   resources :users do
+    get 'login'
     resources :looking_types
     resources :commit_logs
   end

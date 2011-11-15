@@ -25,4 +25,22 @@ class ApplicationController < ActionController::Base
       (@name = name) == "voyage" and password == "voyage"
     end
   end
+
+  def login_check
+   unless logged_in?
+     redirect_to(:controller => "users", :action => "index")
+   end
+  end
+
+  def logged_in?
+    !session[:user_id].nil?
+  end
+  
+  def login(user_id)
+    session[:user_id] = user_id
+  end
+
+  def logout
+    session[:user_id] = nil
+  end
 end

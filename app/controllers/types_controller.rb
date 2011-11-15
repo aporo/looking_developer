@@ -1,5 +1,5 @@
 class TypesController < ApplicationController
-  before_filter :authenticate
+  before_filter :authenticate, :except => ["rank"]
   # GET /types
   # GET /types.json
   def index
@@ -79,6 +79,15 @@ class TypesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to types_url }
       format.json { head :ok }
+    end
+  end
+
+  # GET /types/rank/id
+  def rank
+    if params[:id].nil?
+      @ranking = Type.ranking
+    else
+      @ranking = Type.ranking(params[:id])
     end
   end
 end
