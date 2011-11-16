@@ -1,0 +1,12 @@
+<div data-role="header" data-position="inline" data-nobackbtn="true">
+  <%= link_to 'Back', users_path , {"class" => "ui-btn-left", "data-icon" => "back"} %>
+  <h1>Ranking looking_types</h1>
+</div>
+
+<div data-role="content">
+  <ul data-role="listview">
+    <% @looking_types.each do |looking_type| %>
+    <li><a href="#"><%= looking_type[:name]%><span class="ui-li-count"><%= looking_type[:count] %></span></a></li>
+    <% end %>
+  </ul>
+</div>

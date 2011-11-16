@@ -13,8 +13,12 @@ class LookingTypesController < ApplicationController
   def rank
     @looking_types = LookingType.rank
     respond_to do |format|
-      format.html # rank.html.erb
-      format.json { render :json => @looking_types }
+      if smartphone?
+        format.html { render :template => "looking_types/rank_smp"}
+      else
+        format.html # rank.html.erb
+        format.json { render :json => @looking_types }
+      end
     end
   end
 

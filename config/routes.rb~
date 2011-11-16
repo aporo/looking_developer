@@ -5,7 +5,11 @@ LookingDeveloper::Application.routes.draw do
 
   resources :types
 
-  resources :looking_types
+  resources :looking_types do
+    collection do
+      get 'rank'
+    end
+  end
 
   resources :commit_logs
 

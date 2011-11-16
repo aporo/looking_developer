@@ -4,9 +4,11 @@
 </div>
 
 <div data-role="content">
-  <ul data-role="listview">
+  <ul data-role="listview" data-filter="true">
     <% @users.each do |user| %>
     <li><%= link_to user.name, user %></li>
     <% end %>
   </ul>
 </div>
+
+<%= render 'footer_smp' %>

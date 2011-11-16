@@ -1,0 +1,7 @@
+<div data-role="content">
+  <ul data-role="listview">
+    <% @repositories.each do |repo| %>
+    <li><%= repo.url %></li>
+    <% end %>
+  </ul>
+</div>

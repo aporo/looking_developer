@@ -45,7 +45,6 @@ class User < ActiveRecord::Base
     self.pass = encode(self.pass)
   end
 
-  private 
   def encode(pass)
     Digest::MD5.hexdigest("#{pass}looking")
   end

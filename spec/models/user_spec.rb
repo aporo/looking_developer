@@ -108,4 +108,21 @@ describe User do
     
     it { @john.pass.should == @john.encode(valid_attributes[:pass])}
   end
+  
+  describe 'has_twitter?' do
+    context "do not have twitter" do
+      before do
+        @john = User.create(valid_attributes)
+      end
+      
+      it { @john.has_twitter?.should be_false }
+    end
+    context "have twitter" do
+      before do
+        @bob = User.create({:name => "bob", :email => "bob@gmail.com", :pass => "bob", :twitter => "bob"})
+      end
+      
+      it { @bob.has_twitter?.should be_true }
+    end
+  end
 end

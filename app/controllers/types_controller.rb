@@ -11,6 +11,18 @@ class TypesController < ApplicationController
     end
   end
 
+  def rank
+    @types = Type.rank
+    respond_to do |format|
+      if smartphone?
+        format.html { render :template => "types/rank_smp"}
+      else
+        format.html # rank.html.erb
+        format.json { render :json => @types }
+      end
+    end
+  end
+
   # GET /types/1
   # GET /types/1.json
   def show
@@ -79,15 +91,6 @@ class TypesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to types_url }
       format.json { head :ok }
-    end
-  end
-
-  # GET /types/rank/id
-  def rank
-    if params[:id].nil?
-      @ranking = Type.ranking
-    else
-      @ranking = Type.ranking(params[:id])
     end
   end
 end

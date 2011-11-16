@@ -1,0 +1,25 @@
+<div data-role="header" data-position="inline" data-nobackbtn="true">
+  <%= link_to 'Back', @user , {"class" => "ui-btn-left", "data-icon" => "back"} %>
+  <h1>Editing <%= @user.name %></h1>
+</div>
+
+<%= render 'form_smp' %>
+
+<% unless @user.not_looking.empty? %> 
+<h2>Add a looking types:</h2>
+<%= form_for([@user, @user.looking_types.build]) do |f| %>
+
+<div data-role="fieldcontain">
+  <fieldset data-role="controlgroup">
+    <% @user.not_looking.each do |type| %>
+    <%= check_box_tag("looking_types[]",type.id , "class" => "custom" )%>
+    <%= label_tag("looking_types",type.name) %>,
+    <% end %>
+  </fieldset>
+</div>
+<div class="actions">
+  <%= f.submit %>
+</div>
+<% end %>
+<% end %>
+

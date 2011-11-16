@@ -36,14 +36,23 @@ class UsersController < ApplicationController
     @user = User.new
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render :json => @user }
+      if smartphone?
+        format.html {render :template => "users/new_smp"}
+      else
+        format.html # new.html.erb
+        format.json { render :json => @user }
+      end
     end
   end
 
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    if smartphone?
+      respond_to do |format|
+        format.html {render :template => "users/edit_smp"}
+      end
+    end
   end
 
   # GET /users/login

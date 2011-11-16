@@ -33,6 +33,8 @@
 </div>
 
 <ul data-role="listview">
+  <li data-role="list-divider">Twitter</li>
+  <iframe allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/follow_button.html?screen_name=<%= @user.twitter%>&show_count=false" style="width:300px; height:20px;"></iframe>
   <li data-role="list-divider">Email</li>
   <li><%= @user.email %></li>
   <li data-role="list-divider">LookingType</li>

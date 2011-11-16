@@ -32,6 +32,10 @@ class User < ActiveRecord::Base
     user_id == self.id
   end
 
+  def has_twitter?
+    !self.twitter.blank?
+  end
+
   def self.auth?(user)
     u = User.find_by_name(user[:name])
     if !u.nil? and u.pass == u.encode(user[:pass])

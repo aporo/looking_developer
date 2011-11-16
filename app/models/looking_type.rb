@@ -6,7 +6,7 @@ class LookingType < ActiveRecord::Base
   def self.rank
     type_count = Type.all.map do |type|
       count = LookingType.count(:conditions => {:type_id => type.id})
-      {:name => type.name,:count => count}
+      {:name => type.name,:count => count,:id => type.id}
     end
     type_count.sort{|a,b| b[:count] <=> a[:count]}
   end

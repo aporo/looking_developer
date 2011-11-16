@@ -6,8 +6,12 @@ class RepositoriesController < ApplicationController
     @repositories = Repository.all
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render :json => @repositories }
+      if smartphone?
+        format.html { render :template => 'repositories/index_smp' }
+      else
+        format.html # index.html.erb
+        format.json { render :json => @repositories }
+      end
     end
   end
 

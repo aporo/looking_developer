@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111115032850) do
+ActiveRecord::Schema.define(:version => 20111116064614) do
 
   create_table "commit_logs", :force => true do |t|
     t.datetime "commit_at"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(:version => 20111115032850) do
     t.datetime "updated_at"
     t.integer  "commit_count", :default => 0
     t.string   "pass"
+    t.string   "twitter"
   end
 
 end

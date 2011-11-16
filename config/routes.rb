@@ -3,7 +3,12 @@ LookingDeveloper::Application.routes.draw do
 
   root :to => 'users#index'
 
-  resources :types
+  resources :types do
+    collection do
+      get 'rank'
+    end
+  end
+
 
   resources :looking_types do
     collection do
