@@ -42,8 +42,8 @@ describe LookingType do
     end
     
     it { @rank.should be_a_kind_of(Array) }
-    it { @rank[0].should == {:name => @ruby.name,:count => 3} }
-    it { @rank[1].should == {:name => @php.name,:count => 2} }
-    it { @rank[2].should == {:name => @js.name,:count => 1} }
+    it { @rank[0].should == {:name => @ruby.name,:count => 3, :id => @ruby.id} }
+    it { @rank[1].should == {:name => @php.name,:count => 2, :id => @php.id} }
+    it { @rank[2].should == {:name => @js.name,:count => 1, :id => @js.id} }
   end
 end

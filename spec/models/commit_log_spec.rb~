@@ -7,7 +7,7 @@ describe CommitLog do
 
   def invalid_attributes(empty_key='commit_at')
     if empty_key == 'commit_at'
-      {:commit_at => '', :user_id => "1",:type_id => "1" }u
+      {:commit_at => '', :user_id => "1",:type_id => "1" }
     else
       {:commit_at => Time.now, :user_id => "",:type_id => "1" }
     end

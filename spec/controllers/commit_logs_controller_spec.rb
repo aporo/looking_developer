@@ -24,7 +24,9 @@ describe CommitLogsController do
   # CommitLog. As you add validations to CommitLog, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    bob = User.create(:name => 'Bob', :email => 'bob@gmail.com', :pass => "bob")
+    ruby = Type.create(:name => 'Ruby')
+    {:commit_at => Time.now, :user_id => bob.id,:type_id => ruby.id }
   end
 
   describe "GET index" do

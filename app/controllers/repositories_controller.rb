@@ -1,5 +1,5 @@
 class RepositoriesController < ApplicationController
-  before_filter :authenticate
+  before_filter :authenticate, :except => ["rank"]
   # GET /repositories
   # GET /repositories.json
   def index
