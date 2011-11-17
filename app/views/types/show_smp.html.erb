@@ -1,0 +1,12 @@
+<p id="notice"><%= notice %></p>
+<div data-role="header" data-position="inline" data-nobackbtn="true">
+  <h1><%= @type.name %></h1>
+</div>
+
+<div data-role="content">
+  <ul data-role="listview">
+    <% @type.rank.each_with_index do |rank,index| %>
+    <li><b><%= (index+1) %>.</b> &nbsp;<a href="/users/<%= rank[:id] %>"><%= rank[:name] %><span class="ui-li-count"><%= rank[:count] %></span></a></li>
+    <% end %>
+  </ul>
+</div>

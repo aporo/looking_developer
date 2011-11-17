@@ -12,6 +12,7 @@ describe Type do
       {:name => "Ruby",:pattern => ""}
     end
   end
+
   describe 'validate' do
     context 'valid' do
       it { Type.new(valid_attributes).should be_valid }
@@ -24,6 +25,30 @@ describe Type do
   end
 
   describe 'rank' do
+    before do
+      @john  = User.create(:name => "John", :email => "john@gmail.com", :pass => "john")
+      @bob   = User.create(:name => "Bob", :email => "bob@gmail.com", :pass => "bob")
+      @alice = User.create(:name => "Alice", :email => "alice@gmail.com", :pass => "alice")
+      @ruby = Type.create(:name => 'Ruby', :pattern => '.rb')
+      users = User.all
+      types = Type.all
+      3.times do
+        CommitLog.create(:user_id => @john.id, :type_id => @ruby.id, :commit_at => Time.now)
+      end
+      2.times do
+        CommitLog.create(:user_id => @alice.id, :type_id => @ruby.id, :commit_at => Time.now)
+      end
+      CommitLog.create(:user_id => @bob.id, :type_id => @ruby.id, :commit_at => Time.now)
+      @ruby.reload
+    end
+
+    it { @ruby.rank.should be_a_kind_of(Array) }
+    it { @ruby.rank[0][:name].should == @john.name }
+    it { @ruby.rank[1][:name].should == @alice.name }
+    it { @ruby.rank[2][:name].should == @bob.name }
+  end
+
+  describe 'self.rank' do
     before do
       @john  = User.create(:name => "John", :email => "john@gmail.com", :pass => "john")
       @bob   = User.create(:name => "Bob", :email => "bob@gmail.com", :pass => "bob")

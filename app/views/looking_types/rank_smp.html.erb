@@ -6,7 +6,7 @@
 <div data-role="content">
   <ul data-role="listview">
     <% @looking_types.each do |looking_type| %>
-    <li><a href="#"><%= looking_type[:name]%><span class="ui-li-count"><%= looking_type[:count] %></span></a></li>
+    <li><a href="/types/<%= looking_type[:id] %>"><%= looking_type[:name]%><span class="ui-li-count"><%= looking_type[:count] %></span></a></li>
     <% end %>
   </ul>
 </div>

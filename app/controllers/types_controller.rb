@@ -1,5 +1,5 @@
 class TypesController < ApplicationController
-  before_filter :authenticate, :except => ["rank"]
+  before_filter :authenticate, :except => ["rank","show"]
   # GET /types
   # GET /types.json
   def index
@@ -29,8 +29,12 @@ class TypesController < ApplicationController
     @type = Type.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @type }
+      if smartphone?
+        format.html { render :template => "types/show_smp"}
+      else
+        format.html # show.html.erb
+        format.json { render :json => @type }
+      end
     end
   end
 
