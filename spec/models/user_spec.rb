@@ -125,4 +125,35 @@ describe User do
       it { @bob.has_twitter?.should be_true }
     end
   end
+
+
+  describe 'after_destroy' do
+    before do
+      @john = User.create(valid_attributes)
+      @bob = User.create({:name => "bob", :email => "bob@gmail.com", :pass => "bob", :twitter => "bob"})
+      @ruby = Type.create({:name => "ruby", :pattern => ".rb"})
+      LookingType.create({:user_id => @john.id, :type_id => @ruby.id})
+      LookingType.create({:user_id => @bob.id, :type_id => @ruby.id})
+      CommitLog.create({:user_id => @john.id, :type_id => @ruby.id, :commit_at => Time.now})
+      CommitLog.create({:user_id => @bob.id, :type_id => @ruby.id, :commit_at => Time.now})
+      @john.destroy
+      @bob.reload
+    end
+    
+    it "delete johns's looking_type" do
+      LookingType.find_by_user_id(@john.id).should be_nil
+    end
+
+    it "do not delete johns's looking_type" do
+      @bob.looking_types.should_not be_empty
+    end
+
+    it "delete john's commit_log" do
+      CommitLog.find_by_user_id(@john.id).should be_nil
+    end
+
+    it "do not delete bob's commit_log" do
+      @bob.commit_logs.should_not be_empty
+    end
+  end
 end

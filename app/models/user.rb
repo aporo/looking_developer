@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :commit_logs
   has_many :looking_types
   before_create :encode_pass
+  after_destroy :destroy_relation
 
   def looking
     self.looking_types.map do |looking_type|
@@ -52,4 +53,15 @@ class User < ActiveRecord::Base
   def encode(pass)
     Digest::MD5.hexdigest("#{pass}looking")
   end
+
+  private
+  def destroy_relation
+    self.looking_types.each do |look_type|
+      look_type.delete
+    end
+    self.commit_logs.each do |commit|
+      commit.delete
+    end
+  end
+
 end

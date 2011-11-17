@@ -54,4 +54,30 @@ describe Type do
     it { Type.rank[1][:name].should == @php.name }
     it { Type.rank[2][:name].should == @js.name }
   end
+
+  describe 'after_destroy' do
+    before do
+      @john  = User.create(:name => "John", :email => "john@gmail.com", :pass => "john")
+      @ruby = Type.create({:name => "ruby", :pattern => ".rb"})
+      @php = Type.create({:name => "php", :pattern => ".php"})
+      LookingType.create({:user_id => @john.id, :type_id => @ruby.id})
+      LookingType.create({:user_id => @john.id, :type_id => @php.id})
+      CommitLog.create({:user_id => @john.id, :type_id => @ruby.id, :commit_at => Time.now})
+      CommitLog.create({:user_id => @john.id, :type_id => @php.id, :commit_at => Time.now})
+      @ruby.destroy
+      @john.reload
+    end
+    
+    it "delete johns's looking_type only ruby" do
+      @john.looking_types.size.should == 1
+      @john.looking_types[0].type.should == @php
+      LookingType.count(:conditions => {:user_id => @john.id}).should == 1
+    end
+
+    it "delete john's commit_log only ruby" do
+      @john.commit_logs.size.should == 1
+      @john.commit_logs[0].type.should == @php
+      CommitLog.count(:conditions => {:user_id => @john.id}).should == 1
+    end
+  end
 end
