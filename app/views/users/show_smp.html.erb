@@ -32,8 +32,11 @@
 </div>
 
 <ul data-role="listview">
+  <img src="<%= @user.image %>" />
+  <% if @user.has_twitter? %>
   <li data-role="list-divider">Twitter</li>
   <iframe allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/follow_button.html?screen_name=<%= @user.twitter%>&show_count=false" style="width:300px; height:20px;"></iframe>
+  <% end %>
   <li data-role="list-divider">Email</li>
   <li><%= @user.email %></li>
   <li data-role="list-divider">LookingType</li>

@@ -10,7 +10,7 @@ class Type < ActiveRecord::Base
       count = CommitLog.count(:conditions => {:user_id => user.id, :type_id => self.id})
       {:name => user.name, :id => user.id, :count => count}
     end
-    user_count.sort{|a,b| b[:count] <=> a[:count]}
+    user_count.sort{|a,b| b[:count] <=> a[:count]}[0..4]
   end
 
 
@@ -19,7 +19,7 @@ class Type < ActiveRecord::Base
       count = CommitLog.count(:conditions => {:type_id => type.id})
       {:name => type.name,:count => count, :id => type.id}
     end
-    type_count.sort{|a,b| b[:count] <=> a[:count]}
+    type_count.sort{|a,b| b[:count] <=> a[:count]}[0..9]
   end
 
   private

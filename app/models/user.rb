@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  validates_presence_of :name,:email,:pass
+  validates_presence_of :name,:email
   has_many :commit_logs
   has_many :looking_types
   before_create :encode_pass
