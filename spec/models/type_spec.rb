@@ -42,13 +42,9 @@ describe Type do
       @ruby = Type.create(:name => 'Ruby', :pattern => '.rb')
       users = User.all
       types = Type.all
-      3.times do
-        CommitLog.create(:user_id => @john.id, :type_id => @ruby.id, :commit_at => Time.now)
-      end
-      2.times do
-        CommitLog.create(:user_id => @alice.id, :type_id => @ruby.id, :commit_at => Time.now)
-      end
-      CommitLog.create(:user_id => @bob.id, :type_id => @ruby.id, :commit_at => Time.now)
+      CommitLog.create(:user_id => @john.id, :type_id => @ruby.id, :commit_at => Time.now,:count => 3)
+      CommitLog.create(:user_id => @alice.id, :type_id => @ruby.id, :commit_at => Time.now, :count => 2)
+      CommitLog.create(:user_id => @bob.id, :type_id => @ruby.id, :commit_at => Time.now, :count => 1)
       @ruby.reload
     end
 
@@ -69,19 +65,9 @@ describe Type do
       @js = Type.create(:name => 'JavaScript', :pattern => '.js')
       users = User.all
       types = Type.all
-      10.times do 
-        types.each do |type|
-          users.each do |user|
-            CommitLog.create(:user_id => user.id, :type_id => type.id, :commit_at => Time.now)
-          end
-        end
-      end
-      CommitLog.create(:user_id => @john.id, :type_id => @ruby.id, :commit_at => Time.now)
-      CommitLog.create(:user_id => @alice.id, :type_id => @ruby.id, :commit_at => Time.now)
-      CommitLog.create(:user_id => @bob.id, :type_id => @ruby.id, :commit_at => Time.now)
-      CommitLog.create(:user_id => @john.id, :type_id => @php.id, :commit_at => Time.now)
-      CommitLog.create(:user_id => @alice.id, :type_id => @php.id, :commit_at => Time.now)
-      CommitLog.create(:user_id => @bob.id, :type_id => @js.id, :commit_at => Time.now)
+      CommitLog.create(:user_id => @john.id, :type_id => @ruby.id, :commit_at => Time.now, :count => 3)
+      CommitLog.create(:user_id => @john.id, :type_id => @php.id, :commit_at => Time.now, :count => 2)
+      CommitLog.create(:user_id => @bob.id, :type_id => @js.id, :commit_at => Time.now, :count => 1)
     end
 
     it { Type.rank.should be_a_kind_of(Array) }

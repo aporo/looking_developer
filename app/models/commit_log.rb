@@ -8,10 +8,14 @@ class CommitLog < ActiveRecord::Base
     users = User.all
     repos = Repository.all
     types = Type.all
-    types_count = types.map {|t| {t.name => 0}}
+    types_count = {}
     repos.each do |repo|
+      `rm -rf #{Rails.root}/tmp/repo`
       `git clone #{repo.url} #{Rails.root}/tmp/repo`
       users.each do |user|
+        types.each do |type|
+          types_count[type.name] = 0
+        end
         commit_at = ""
         `cd #{Rails.root}/tmp/repo && git log --author #{user.name} --name-only > #{Rails.root}/tmp/#{user.name}_git_log.txt`
         open("#{Rails.root}/tmp/#{user.name}_git_log.txt").each do |line|
@@ -24,8 +28,8 @@ class CommitLog < ActiveRecord::Base
             end
           end
         end
-        types.each do |t|
-          CommitLog.create(:commit_at => commit_at,:user_id => user.id, :type_id => type.id,:count => types_count[t.name])
+        types.each do |type|
+          CommitLog.create(:commit_at => commit_at,:user_id => user.id, :type_id => type.id,:count => types_count[type.name])
         end
         `rm "#{Rails.root}/tmp/#{user.name}_git_log.txt"`
       end

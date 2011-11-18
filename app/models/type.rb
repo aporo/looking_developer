@@ -7,17 +7,20 @@ class Type < ActiveRecord::Base
 
   def rank
     users = User.all
-    user_count = users.map do |user|
-      count = CommitLog.count(:conditions => {:user_id => user.id, :type_id => self.id})
-      {:name => user.name, :id => user.id, :count => count}
+    users_count = users.map do |user|
+      count = user.commit_logs.sum(:count,:conditions => {:type_id => self.id})
+      unless count.nil?
+        {:name => user.name, :count => count, :id => user.id}
+      else
+        {:name => user.name, :count => 0, :id => user.id}
+      end
     end
-    user_count.sort{|a,b| b[:count] <=> a[:count]}[0..4]
+    users_count.sort{|a,b| b[:count] <=> a[:count]}[0..4]
   end
-
 
   def self.rank
     type_count = Type.all.map do |type|
-      count = CommitLog.count(:conditions => {:type_id => type.id})
+      count = CommitLog.sum(:count,:conditions => {:type_id => type.id})
       {:name => type.name,:count => count, :id => type.id}
     end
     type_count.sort{|a,b| b[:count] <=> a[:count]}[0..9]

@@ -3,7 +3,7 @@ class TypesController < ApplicationController
   # GET /types
   # GET /types.json
   def index
-    @types = Type.all
+    @types = Type.all.sort{|a,b| a.name <=> b.name }
 
     respond_to do |format|
       format.html # index.html.erb
