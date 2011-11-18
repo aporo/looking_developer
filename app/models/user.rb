@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
       end
     end
   end
-
+  
   def not_looking
     Type.all.select do |type|
       self.looking_types.any?{ |looking_type| looking_type.type_id == type.id } == false
@@ -21,12 +21,12 @@ class User < ActiveRecord::Base
   end
   
   def commit_count
-    self.commit_logs.length
+    CommitLog.sum(:count,:conditions => {:user_id => self.id})
   end
-
+  
   def commit_count_by_type
     Type.all.map do |type|
-      {:name => type.name , :count => CommitLog.count(:conditions => {:user_id => self.id,:type_id => type.id})}
+      {:name => type.name , :count => CommitLog.sum(:count,:conditions => {:user_id => self.id,:type_id => type.id})}
     end
   end
   

@@ -82,7 +82,7 @@ describe User do
     before do
       @john = User.create(valid_attributes)
       @ruby = Type.create(:name => 'Ruby', :pattern => '.rb')
-      @commit_log = CommitLog.create(:user_id => @john.id, :type_id => @ruby.id,:commit_at => Time.now)
+      @commit_log = CommitLog.create(:user_id => @john.id, :type_id => @ruby.id,:commit_at => Time.now, :count => 1)
     end
     
     it "john's commit_count == 1" do

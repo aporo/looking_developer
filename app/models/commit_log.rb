@@ -7,6 +7,8 @@ class CommitLog < ActiveRecord::Base
   def self.import_repository_data
     users = User.all
     repos = Repository.all
+    types = Type.all
+    types_count = types.map {|t| {t.name => 0}}
     repos.each do |repo|
       `git clone #{repo.url} #{Rails.root}/tmp/repo`
       users.each do |user|
@@ -16,12 +18,14 @@ class CommitLog < ActiveRecord::Base
           if line.include?("Date")
             commit_at = line.gsub("Date:   ","")
           end
-          types = Type.all
           types.each do |type|
             if line.include?(type.pattern)
-              CommitLog.create(:commit_at => commit_at,:user_id => user.id, :type_id => type.id)
+              types_count[type.name] += 1
             end
           end
+        end
+        types.each do |t|
+          CommitLog.create(:commit_at => commit_at,:user_id => user.id, :type_id => type.id,:count => types_count[t.name])
         end
         `rm "#{Rails.root}/tmp/#{user.name}_git_log.txt"`
       end
