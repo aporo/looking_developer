@@ -39,7 +39,7 @@ class CommitLog < ActiveRecord::Base
         end
         `rm "#{Rails.root}/tmp/#{user.name}_git_log.txt"`
       end
-      `rm -rf #{Rails.root}/tmp/repo`
+#      `rm -rf #{Rails.root}/tmp/repo`
     end
   end
 end
