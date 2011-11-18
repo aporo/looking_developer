@@ -10,21 +10,24 @@ class CommitLog < ActiveRecord::Base
     types = Type.all
     types_count = {}
     repos.each do |repo|
-      if Dir.exist?("#{Rails.root}/tmp")
-        if Dir.exist?("#{Rails.root}/tmp/repo")
-          `rm -rf #{Rails.root}/tmp/repo`
-        end
+      if Rails.env == "production"
+        tmp_path = "#{Rails.root}/public"
       else
-        Dir.mkdir("#{Rails.root}/tmp")
+        tmp_path = "#{Rails.root}/tmp"
       end
-      `git clone #{repo.url} #{Rails.root}/tmp/repo`
+      repo_path = "#{tmp_path}/repo"
+      if Dir.exist?(repo_path)
+        `rm -rf #{repo_path}`
+      end
+      
+      `git clone #{repo.url} #{repo_path}`
       users.each do |user|
         types.each do |type|
           types_count[type.name] = 0
         end
         commit_at = ""
-        `cd #{Rails.root}/tmp/repo && git log --author #{user.name} --name-only > #{Rails.root}/tmp/#{user.name}_git_log.txt`
-        open("#{Rails.root}/tmp/#{user.name}_git_log.txt").each do |line|
+        `cd #{repo_path} && git log --author #{user.name} --name-only > #{tmp_path}/#{user.name}_git_log.txt`
+        open("#{tmp_path}/#{user.name}_git_log.txt").each do |line|
           if line.include?("Date")
             commit_at = line.gsub("Date:   ","")
           end
@@ -37,9 +40,9 @@ class CommitLog < ActiveRecord::Base
         types.each do |type|
           CommitLog.create(:commit_at => commit_at,:user_id => user.id, :type_id => type.id,:count => types_count[type.name])
         end
-        `rm "#{Rails.root}/tmp/#{user.name}_git_log.txt"`
+        `rm "#{tmp_path}/#{user.name}_git_log.txt"`
       end
-#      `rm -rf #{Rails.root}/tmp/repo`
+      `rm -rf #{repo_path}`
     end
   end
 end
