@@ -18,6 +18,16 @@ describe LookingType do
     end
 
     context 'invalid' do
+      before do
+        @look = LookingType.create(valid_attributes)
+        @look_clone = LookingType.create(valid_attributes)
+      end
+
+      it "user_id,type_id is unique " do
+        @look.should be_valid
+        @look_clone.should_not be_valid
+      end
+
       it { LookingType.new(invalid_attributes).should_not be_valid }
       it { LookingType.new(invalid_attributes("type_id")).should_not be_valid }
     end

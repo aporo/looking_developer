@@ -1,5 +1,6 @@
 class Type < ActiveRecord::Base
   validates_presence_of :name,:pattern
+  validates_uniqueness_of :name
   has_many :looking_types
   has_many :commit_logs
   after_destroy :destroy_relation

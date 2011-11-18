@@ -1,5 +1,6 @@
 class LookingType < ActiveRecord::Base
   validates_presence_of :user_id, :type_id
+  validates_uniqueness_of :user_id, :scope => [:type_id]
   belongs_to :user
   belongs_to :type
 

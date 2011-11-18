@@ -19,6 +19,16 @@ describe Type do
     end
     
     context 'invalid' do
+      before do
+        @ruby = Type.create(valid_attributes)
+        @ruby_clone = Type.create(valid_attributes)
+      end
+
+      it "name is unique" do
+        @ruby.should be_valid
+        @ruby_clone.should_not be_valid
+      end
+      
       it { Type.new(invalid_attributes).should_not be_valid }
       it { Type.new(invalid_attributes("pattern")).should_not be_valid }
     end

@@ -27,11 +27,17 @@ describe User do
 
     context 'invalid' do
       before do
+        @john = User.create(valid_attributes)
+        @john_clone = User.create(valid_attributes)
         @john_miss_name = User.new(invalid_attributes('name'))
         @john_miss_email = User.new(invalid_attributes('email'))
         @john_miss_pass = User.new(invalid_attributes)
       end
       
+      it "name is unique" do
+        @john.should be_valid
+        @john_clone.should_not be_valid
+      end
       it { @john_miss_name.should_not be_valid }
       it { @john_miss_email.should_not be_valid }
       it { @john_miss_pass.should_not be_valid }
