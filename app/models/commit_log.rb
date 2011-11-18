@@ -10,7 +10,13 @@ class CommitLog < ActiveRecord::Base
     types = Type.all
     types_count = {}
     repos.each do |repo|
-      `rm -rf #{Rails.root}/tmp/repo`
+      if Dir.exist?("#{Rails.root}/tmp")
+        if Dir.exist?("#{Rails.root}/tmp/repo")
+          `rm -rf #{Rails.root}/tmp/repo`
+        end
+      else
+        Dir.mkdir("#{Rails.root}/tmp")
+      end
       `git clone #{repo.url} #{Rails.root}/tmp/repo`
       users.each do |user|
         types.each do |type|
