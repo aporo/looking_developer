@@ -7,6 +7,7 @@ gem 'rails', '3.1.0'
 
 group :development,:test do
   gem 'sqlite3'
+  gem 'taps'
 end
 
 gem 'json'
@@ -40,5 +41,4 @@ group :production do
   gem 'thin'
 end
 
-gem 'taps'
 gem 'heroku'
