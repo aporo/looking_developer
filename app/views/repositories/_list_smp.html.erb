@@ -1,7 +1,11 @@
 <div data-role="content">
   <ul data-role="listview">
     <% @repositories.each do |repo| %>
-    <li><%= repo.url %></li>
+    <li><%= repo.url %>
+    <a href="/repositories/import?id=<%= repo.id %>">
+    <span class="ui-li-count">import</span>
+    </a>
+    </li>
     <% end %>
   </ul>
 </div>

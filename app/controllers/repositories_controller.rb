@@ -15,6 +15,14 @@ class RepositoriesController < ApplicationController
     end
   end
 
+  def import
+    @repository = Repository.find_by_id(params[:id])
+    unless @repository.nil?
+      @repository.import
+    end
+    redirect_to @repository, :notice => 'Repository datawas successfully imported.'
+  end
+
   # GET /repositories/1
   # GET /repositories/1.json
   def show

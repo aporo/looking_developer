@@ -1,5 +1,9 @@
 LookingDeveloper::Application.routes.draw do
-  resources :repositories
+  resources :repositories do
+    collection do
+      get 'import'
+    end
+  end
 
   root :to => 'users#index'
 

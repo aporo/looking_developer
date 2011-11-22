@@ -1,9 +1,18 @@
 LookingDeveloper::Application.routes.draw do
-  resources :repositories
+  resources :repositories do
+    collection do
+      get 'import/:id'
+    end
+  end
 
   root :to => 'users#index'
 
-  resources :types
+  resources :types do
+    collection do
+      get 'rank'
+    end
+  end
+
 
   resources :looking_types do
     collection do

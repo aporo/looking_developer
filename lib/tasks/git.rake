@@ -1,6 +1,7 @@
-desc "Git Repository Data Clear"
+desc "Refesh Git Repository Data"
 namespace 'git' do
   task :reflesh => :environment do
+    User.delete_all
     CommitLog.delete_all
   end
 end
@@ -8,6 +9,8 @@ end
 desc "Import Git Repository Data"
 namespace 'git' do
   task :import => :environment do
-    CommitLog.import_repository_data
+    Repository.all.each do |repo|
+      repo.import
+    end
   end
 end
