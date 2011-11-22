@@ -38,7 +38,9 @@ class CommitLog < ActiveRecord::Base
           end
         end
         types.each do |type|
-          CommitLog.create(:commit_at => commit_at,:user_id => user.id, :type_id => type.id,:count => types_count[type.name])
+          if types_count[type.name] > 0
+            CommitLog.create(:commit_at => commit_at,:user_id => user.id, :type_id => type.id,:count => types_count[type.name])
+          end
         end
         `rm "#{tmp_path}/#{user.name}_git_log.txt"`
       end
