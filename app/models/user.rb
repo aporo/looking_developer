@@ -83,5 +83,4 @@ class User < ActiveRecord::Base
       commit.delete
     end
   end
-
 end

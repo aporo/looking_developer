@@ -39,3 +39,6 @@ group :production do
   gem 'therubyracer-heroku'
   gem 'thin'
 end
+
+gem 'taps'
+gem 'heroku'
