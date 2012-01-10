@@ -5,11 +5,7 @@ gem 'rails', '3.1.0'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-group :development,:test do
-  gem 'sqlite3'
-  gem 'taps'
-  gem 'heroku_san'
-end
+gem 'sqlite3'
 
 gem 'json'
 
@@ -23,23 +19,6 @@ end
 
 gem 'jquery-rails'
 
-# Use unicorn as the web server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug'
-
 gem 'rspec'
 gem 'rspec-rails'
 
-group :production do
-  # gems specifically for Heroku go here
-  gem "pg"
-  gem 'therubyracer-heroku'
-  gem 'thin'
-end
-
-gem 'heroku'
