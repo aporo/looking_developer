@@ -8,6 +8,7 @@ gem 'rails', '3.1.0'
 group :development,:test do
   gem 'sqlite3'
   gem 'taps'
+  gem 'heroku_san'
 end
 
 gem 'json'
