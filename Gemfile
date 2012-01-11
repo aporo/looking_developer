@@ -21,4 +21,3 @@ gem 'jquery-rails'
 
 gem 'rspec'
 gem 'rspec-rails'
-
